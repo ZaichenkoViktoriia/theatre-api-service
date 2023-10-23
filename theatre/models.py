@@ -49,6 +49,8 @@ class Play(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(null=True, upload_to=image_file_path)
+    genres = models.ManyToManyField(Genre)
+    actors = models.ManyToManyField(Actor)
 
     class Meta:
         ordering = ["title"]

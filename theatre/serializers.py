@@ -37,6 +37,8 @@ class PlaySerializer(serializers.ModelSerializer):
             "id",
             "title",
             "description",
+            "actors",
+            "genres",
             "image"
         )
 

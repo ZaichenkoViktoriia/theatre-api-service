@@ -9,7 +9,14 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ReadOnlyModelViewSet
 
-from theatre.models import Genre, Actor, TheatreHall, Play, Performance, Reservation
+from theatre.models import (
+    Genre,
+    Actor,
+    TheatreHall,
+    Play,
+    Performance,
+    Reservation
+)
 from theatre.permissions import IsAdminOrIfAuthenticatedReadOnly
 
 from theatre.serializers import (
@@ -35,7 +42,6 @@ class GenreViewSet(
 ):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
 
@@ -46,7 +52,6 @@ class ActorViewSet(
 ):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
 
@@ -57,7 +62,6 @@ class TheatreHallViewSet(
 ):
     queryset = TheatreHall.objects.all()
     serializer_class = TheatreHallSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
 
@@ -68,7 +72,6 @@ class PlayViewSet(
 ):
     queryset = Play.objects.all()
     serializer_class = PlaySerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
     @staticmethod
@@ -126,7 +129,6 @@ class PerformanceViewSet(viewsets.ModelViewSet):
         )
     )
     serializer_class = PerformanceSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
     def get_queryset(self):
@@ -169,7 +171,6 @@ class ReservationViewSet(
     )
     serializer_class = ReservationSerializer
     pagination_class = ReservationPagination
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
