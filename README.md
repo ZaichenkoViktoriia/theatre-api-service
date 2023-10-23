@@ -1,5 +1,5 @@
 # theatre-api-service
-
+Theatre API Service is a backend implementation designed to support theatre-related applications. This service provides comprehensive API endpoints to manage various aspects of theatre data, including genres, actors, theatre halls, plays, performances, and reservations. It's built to facilitate easy access and management of theatre-related information for your application.
 ## Installation
 
 Python3 must be already installed.
@@ -13,23 +13,34 @@ python manage.py migrate
 python manage.py runserver 
 ```
 
-
-documentation
+#### Documentation
+For detailed information and API documentation, visit:
 http://127.0.0.1:8088/api/doc/swagger/
 
-#### Test admin 
+#### Test admin
+You can use the following credentials to access the admin panel for testing purposes:
 ```shell
 email: theatre@admin.com
 password: 9900py
 ```
-- create user api/user/register
-- your profile api/user/me
-- get access token api/user/token
-- refresh token api/user/token/refresh
-- verify token api/user/token/verify
+Available API Endpoints
+```shell
+Create a user: api/user/register
+View your profile: api/user/me
+Get an access token: api/user/token
+Refresh an access token: api/user/token/refresh
+Verify an access token: api/user/token/verify
+```
+## Features
+- JWT Authenticated
+- Managing  reservation of tickets in the theatre
+- Documentation is located in /api/doc/swagger/
+- Opportunity to upload images to Play
+- For user identification, we use email addresses instead of username
 
 
 ## DB structure
-Structure of project
+Here is an overview of the project's database structure:
+
 
 ![Screenshot 2023-10-20 at 19.06.34.png](..%2F..%2FDesktop%2FScreenshot%202023-10-20%20at%2019.06.34.png)
