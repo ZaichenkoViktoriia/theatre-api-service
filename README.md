@@ -36,6 +36,7 @@ Verify an access token: api/user/token/verify
 - Managing  reservation of tickets in the theatre
 - Documentation is located in /api/doc/swagger/
 - Opportunity to upload images to Play
+- Pagination for reservation
 - For user identification, we use email addresses instead of username
 
 

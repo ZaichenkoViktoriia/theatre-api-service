@@ -2,7 +2,6 @@ from datetime import datetime
 
 from django.db.models import F, Count
 from rest_framework import viewsets, mixins, status
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -61,9 +60,10 @@ class TheatreHallViewSet(
 class PlayViewSet(
     ReadOnlyModelViewSet,
     mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
     GenericViewSet,
 ):
-    queryset = Play.objects.all()
+    queryset = Play.objects.prefetch_related("genres", "actors")
     serializer_class = PlaySerializer
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
@@ -73,12 +73,17 @@ class PlayViewSet(
 
     def get_queryset(self):
         title = self.request.query_params.get("title")
-
+        genres = self.request.query_params.get("genres")
+        actors = self.request.query_params.get("actors")
         queryset = self.queryset
-
         if title:
             queryset = queryset.filter(title__icontains=title)
-
+        if genres:
+            genres_ids = self._params_to_ints(genres)
+            queryset = queryset.filter(genres__id__in=genres_ids)
+        if actors:
+            actors_ids = self._params_to_ints(actors)
+            queryset = queryset.filter(actors__id__in=actors_ids)
         return queryset.distinct()
 
     def get_serializer_class(self):
