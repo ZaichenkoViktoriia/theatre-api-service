@@ -18,6 +18,14 @@ class GenreSerializer(serializers.ModelSerializer):
         fields = ("id", "name")
 
 
+class GenreDetailSerializer(GenreSerializer):
+    pass
+
+    class Meta:
+        model = Genre
+        fields = ("id", "name")
+
+
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
@@ -33,24 +41,13 @@ class TheatreHallSerializer(serializers.ModelSerializer):
 class PlaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Play
-        fields = (
-            "id",
-            "title",
-            "description",
-            "actors",
-            "genres",
-            "image"
-        )
+        fields = ("id", "title", "description", "actors", "genres", "image")
 
         read_only_fields = ("id", "image")
 
 
 class PlayListSerializer(PlaySerializer):
-    genres = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field="name"
-    )
+    genres = serializers.SlugRelatedField(many=True, read_only=True, slug_field="name")
     actors = serializers.SlugRelatedField(
         many=True, read_only=True, slug_field="full_name"
     )
@@ -61,12 +58,7 @@ class PlayDetailSerializer(PlaySerializer):
 
     class Meta:
         model = Play
-        fields = (
-            "id",
-            "title",
-            "description",
-            "image"
-        )
+        fields = ("id", "title", "description", "image")
 
 
 class PlayImageSerializer(serializers.ModelSerializer):
@@ -84,8 +76,7 @@ class PerformanceSerializer(serializers.ModelSerializer):
 class PerformanceListSerializer(PerformanceSerializer):
     play_title = serializers.CharField(source="play.title", read_only=True)
     theatre_hall_name = serializers.CharField(
-        source="theatre_hall.name",
-        read_only=True
+        source="theatre_hall.name", read_only=True
     )
     theatre_hall_capacity = serializers.IntegerField(
         source="theatre_hall.capacity", read_only=True
@@ -109,11 +100,7 @@ class PerformanceListSerializer(PerformanceSerializer):
 class TicketSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         data = super(TicketSerializer, self).validate(attrs=attrs)
-        Ticket.validate_ticket(
-            attrs["row"],
-            attrs["seat"],
-            attrs["performance"]
-        )
+        Ticket.validate_ticket(attrs["row"], attrs["seat"], attrs["performance"])
         return data
 
     class Meta:
@@ -134,11 +121,7 @@ class TicketSeatsSerializer(TicketSerializer):
 class PerformanceDetailSerializer(PerformanceSerializer):
     play = PlayListSerializer(many=False, read_only=True)
     theatre_hall = TheatreHallSerializer(many=False, read_only=True)
-    taken_places = TicketSeatsSerializer(
-        source="tickets",
-        many=True,
-        read_only=True
-    )
+    taken_places = TicketSeatsSerializer(source="tickets", many=True, read_only=True)
 
     class Meta:
         model = Performance

@@ -6,32 +6,37 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('theatre', '0001_initial'),
+        ("theatre", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='reservation',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="reservation",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='performance',
-            name='play',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='theatre.play'),
+            model_name="performance",
+            name="play",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="theatre.play"
+            ),
         ),
         migrations.AddField(
-            model_name='performance',
-            name='theatre_hall',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='theatre.theatrehall'),
+            model_name="performance",
+            name="theatre_hall",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="theatre.theatrehall"
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='ticket',
-            unique_together={('performance', 'row', 'seat')},
+            name="ticket",
+            unique_together={("performance", "row", "seat")},
         ),
     ]
