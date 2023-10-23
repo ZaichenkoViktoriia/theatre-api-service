@@ -43,4 +43,4 @@ Verify an access token: api/user/token/verify
 Here is an overview of the project's database structure:
 
 
-![Screenshot 2023-10-20 at 19.06.34.png](..%2F..%2FDesktop%2FScreenshot%202023-10-20%20at%2019.06.34.png)
+![demo](..%2F..%2FDesktop%2FScreenshot%202023-10-20%20at%2019.06.34.png)
