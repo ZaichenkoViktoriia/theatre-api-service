@@ -21,10 +21,6 @@ class GenreSerializer(serializers.ModelSerializer):
 class GenreDetailSerializer(GenreSerializer):
     pass
 
-    class Meta:
-        model = Genre
-        fields = ("id", "name")
-
 
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
