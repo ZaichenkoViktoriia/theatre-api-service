@@ -6,6 +6,8 @@ Python3 must be already installed.
 ```shell
 git@github.com:ZaichenkoViktoriia/theatre-api-service.git
 cd theatre_api_service
+cp .env.example .env
+# add a proper SECRET_KEY variable to .env afterwards
 python3 -m venv venv
 source venv/bin/activate  (On Windows use `venv\Scripts\activate`)
 pip install -r requirements.txt
@@ -18,8 +20,9 @@ For detailed information and API documentation, visit:
 http://127.0.0.1:8088/api/doc/swagger/
 
 #### Test admin
-You can use the following credentials to access the admin panel for testing purposes:
+You can use the following credentials to access the admin panel for testing purposes (or create another one by yourself):
 ```shell
+Use "python manage.py createsuperuser"
 email: theatre@admin.com
 password: 9900py
 ```

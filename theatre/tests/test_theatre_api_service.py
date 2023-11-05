@@ -51,7 +51,9 @@ def sample_actor(**params):
 
 
 def sample_performance(**params):
-    theatre_hall = TheatreHall.objects.create(name="Blue", rows=20, seats_in_row=20)
+    theatre_hall = TheatreHall.objects.create(
+        name="Blue", rows=20, seats_in_row=20
+    )
 
     defaults = {
         "show_time": "2022-06-02 14:00:00",
@@ -69,7 +71,7 @@ class UnauthenticatedTheatreApiTests(TestCase):
 
     def test_auth_required(self):
         res = self.client.get(PLAY_URL)
-        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class AuthenticatedTheatreApiTests(TestCase):
@@ -137,7 +139,10 @@ class AuthenticatedTheatreApiTests(TestCase):
 
         play3 = sample_play(title="without genres")
 
-        res = self.client.get(PLAY_URL, {"genres": f"{genre1.id}, {genre2.id}"})
+        res = self.client.get(
+            PLAY_URL,
+            {"genres": f"{genre1.id}, {genre2.id}"}
+        )
 
         serializer1 = PlayListSerializer(play1)
         serializer2 = PlayListSerializer(play2)
@@ -162,7 +167,9 @@ class AuthenticatedTheatreApiTests(TestCase):
     def test_retrieve_play_detail(self):
         play = sample_play()
         play.genres.add(Genre.objects.create(name="test"))
-        play.actors.add(Actor.objects.create(first_name="Test", last_name="Test"))
+        play.actors.add(Actor.objects.create(
+            first_name="Test", last_name="Test")
+        )
 
         url = detail_url(play.id)
         res = self.client.get(url)
@@ -211,4 +218,3 @@ class AdminTheatreApiTests(TestCase):
         url = detail_url(play.id)
         res = self.client.put(url)
         self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
-
